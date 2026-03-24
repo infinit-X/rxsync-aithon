@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AITHON2026_Proposal_KoikatathAI_HemasPharma</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+teal: {
+400: '#00FFFF',
+},
+dark: {
+900: '#0B0F19',
+800: '#111827',
+700: '#1F2937'
+}
+},
+fontFamily: {
+sans: ['Inter', 'Arial', 'sans-serif'],
+poppins: ['Poppins', 'sans-serif'],
+}
+}
+}
+}
+</script>
+<style>
+body {
+background-color: #0B0F19;
+color: #e5e7eb;
+font-size: 11pt;
+line-height: 1.15;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Poppins', sans-serif;
+color: #00FFFF;
+font-weight: 700;
+}
+.chart-container {
+position: relative;
+width: 100%;
+max-width: 800px;
+margin-left: auto;
+margin-right: auto;
+height: 350px;
+max-height: 400px;
+background: #111827;
+border: 1px solid #1F2937;
+border-radius: 0.5rem;
+padding: 1rem;
+}
+.glass-panel {
+background: rgba(17, 24, 39, 0.7);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(0, 255, 255, 0.1);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-panel:hover {
+box-shadow: 0 10px 30px rgba(0, 255, 255, 0.05);
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: 0;
+left: 50%;
+background-color: #00FFFF;
+transition: all 0.3s ease;
+transform: translateX(-50%);
+}
+.nav-link.active::after {
+width: 100%;
+}
+.nav-link.active {
+color: #00FFFF;
+}
+/* Flowchart specific styles */
+.flow-box {
+background: #111827;
+border: 1px solid #374151;
+border-radius: 0.5rem;
+padding: 1rem;
+text-align: center;
+position: relative;
+z-index: 10;
+transition: border-color 0.3s;
+}
+.flow-box:hover {
+border-color: #00FFFF;
+}
+.flow-arrow-down {
+width: 2px;
+height: 20px;
+background: #00FFFF;
+margin: 0 auto;
+position: relative;
+}
+.flow-arrow-down::after {
+content: '';
+position: absolute;
+bottom: -4px;
+left: -4px;
+border-width: 5px 5px 0;
+border-style: solid;
+border-color: #00FFFF transparent transparent transparent;
+}
+/* Convert Black Logo to White */
+.invert-logo {
+filter: brightness(0) invert(1);
+}
+</style>
+</head>
+<body class="antialiased">
+
+<nav class="fixed top-0 w-full glass-panel z-50 border-b border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex-shrink-0">
+<h1 class="text-xl tracking-wider uppercase">RxSync AI <span class="text-gray-400 text-sm font-sans font-normal ml-2">| Koikatath AI</span></h1>
+</div>
+<div class="hidden md:block">
+<div class="ml-10 flex items-baseline space-x-6">
+<a href="#executive" class="nav-link active hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors cursor-pointer">1. Value & Impact</a>
+<a href="#innovation" class="nav-link hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors cursor-pointer">2. The Brain</a>
+<a href="#feasibility" class="nav-link hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors cursor-pointer">3. Architecture</a>
+<a href="#contract" class="nav-link hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors cursor-pointer">4. The Contract</a>
+<a href="#roi" class="nav-link hover:text-teal-400 px-3 py-2 text-sm font-medium transition-colors cursor-pointer">5. ROI Roadmap</a>
+</div>
+</div>
+</div>
+</div>
+</nav>
+
+<main class="pt-28 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-28">
+
+<header class="text-center space-y-6 pt-6">
+<div class="inline-block px-4 py-1 rounded-full border border-teal-400 text-teal-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_10px_rgba(0,255,255,0.2)]">
+AITHON 2026 Official Submission | Track 5.1 & 5.2
+</div>
+<h1 class="text-5xl md:text-6xl uppercase tracking-tight leading-tight">AI Prescription Parsing &<br>Predictive Pharmacy Sync</h1>
+<p class="text-xl text-gray-400 max-w-3xl mx-auto font-sans mt-6">
+Target SBU: Hemas Pharmaceuticals & Hospitals. Eliminating patient friction by instantly translating handwritten prescriptions and geo-locating available stock, while proactively managing wholesale pharmaceutical inventory.
+</p>
+</header>
+
+<section id="executive" class="scroll-mt-28 section-block">
+<h2 class="text-3xl mb-8 border-b border-gray-800 pb-4">1. Value & Impact (30%)</h2>
+<p class="text-gray-300 mb-8 max-w-4xl text-lg">
+Patients regularly struggle to decipher handwritten prescriptions and frequently visit multiple pharmacies only to find their critical medications are out of stock. RxSync solves this dual friction point through a synchronized AI ecosystem.
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="glass-panel p-8 rounded-xl">
+<h3 class="text-2xl mb-6 flex items-center">⚠ Problem Mastery (20%)</h3>
+<ul class="space-y-5 text-gray-300">
+<li class="flex items-start">
+<span class="text-teal-400 mr-3 mt-1">▪</span>
+<div>
+<strong class="text-white block mb-1">The Consumer Friction:</strong> Illegible prescriptions lead to confusion. Pharmacy-hopping for out-of-stock items delays critical care and degrades the patient experience.
+</div>
+</li>
+<li class="flex items-start">
+<span class="text-teal-400 mr-3 mt-1">▪</span>
+<div>
+<strong class="text-white block mb-1">The Supply Chain Friction:</strong> Pharmacy inventory is historically reactive. Sudden regional spikes in specific diseases lead to localized stockouts and expired medicines in other regions.
+</div>
+</li>
+<li class="flex items-start">
+<span class="text-teal-400 mr-3 mt-1">▪</span>
+<div>
+<strong class="text-white block mb-1">The Opportunity:</strong> A unified platform where consumer prescription uploads directly inform predictive regional wholesale distribution for Hemas Pharmaceuticals.
+</div>
+</li>
+</ul>
+</div>
+<div class="glass-panel p-8 rounded-xl border-t-4 border-t-teal-400 flex flex-col justify-center">
+<h3 class="text-2xl mb-6">⚡ ROI & Strategic Value (10%)</h3>
+<p class="text-gray-300 mb-6 text-sm">
+By bridging the gap between patient demand and wholesale supply, Hemas can achieve:
+</p>
+<ul class="space-y-5 text-gray-300 text-sm">
+<li class="flex items-center justify-between border-b border-gray-800 pb-3">
+<span class="text-lg">Reduced Patient Search Time</span>
+<span class="text-teal-400 font-bold text-xl">~80% Faster</span>
+</li>
+<li class="flex items-center justify-between border-b border-gray-800 pb-3">
+<span class="text-lg">Reduction in Expired Stock</span>
+<span class="text-teal-400 font-bold text-xl">~25% Drop</span>
+</li>
+<li class="flex items-center justify-between pb-3">
+<span class="text-lg">Increase in Fulfillment Rate</span>
+<span class="text-teal-400 font-bold text-xl">+40% Boost</span>
+</li>
+</ul>
+<p class="text-xs text-gray-500 mt-6 italic">
+*Future Scope: Integration with Hemas Hospitals EHR to map patient treatment history to long-term inventory forecasting.
+</p>
+</div>
+</div>
+</section>
+
+<section id="innovation" class="scroll-mt-28 section-block">
+<h2 class="text-3xl mb-8 border-b border-gray-800 pb-4">2. The Brain: Innovation & Originality (30%)</h2>
+<p class="text-gray-300 mb-8 max-w-4xl text-lg">
+The "Primal Edge" of RxSync is its dual-engine approach. It does not just read prescriptions; it acts as a dynamic intelligence layer that learns from out-of-stock events to reshape future regional supply chains.
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="bg-dark-800 p-8 rounded-xl border border-gray-700 hover:border-teal-400 transition-colors">
+<div class="text-4xl mb-4 text-teal-400 drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]">👁️</div>
+<h3 class="text-xl mb-3 text-white">Engine A: OCR & NLP</h3>
+<p class="text-gray-400 text-sm leading-relaxed">Translates messy, handwritten doctor prescriptions into structured medical data using Optical Character Recognition paired with a medical-specific Large Language Model to identify exact drug names and dosages.</p>
+</div>
+<div class="bg-dark-800 p-8 rounded-xl border border-gray-700 hover:border-teal-400 transition-colors">
+<div class="text-4xl mb-4 text-teal-400 drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]">📍</div>
+<h3 class="text-xl mb-3 text-white">Engine B: Geo-Routing</h3>
+<p class="text-gray-400 text-sm leading-relaxed">Once the drug is identified, the AI queries the central database. If available nearby, it routes the user. If unavailable, it dynamically searches a wider radius and assesses "fast delivery" capabilities.</p>
+</div>
+<div class="bg-dark-800 p-8 rounded-xl border border-gray-700 hover:border-teal-400 transition-colors">
+<div class="text-4xl mb-4 text-teal-400 drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]">📈</div>
+<h3 class="text-xl mb-3 text-white">Engine C: Predictive Trend Analysis</h3>
+<p class="text-gray-400 text-sm leading-relaxed">Every time a patient searches for an "Out of Stock" drug, the system logs it. The backend AI analyzes these historical trends to predict regional demand spikes, notifying wholesale to redistribute stock proactively.</p>
+</div>
+</div>
+</section>
+
+<section id="feasibility" class="scroll-mt-28 section-block">
+<h2 class="text-3xl mb-8 border-b border-gray-800 pb-4">3. Technical Architecture (30%)</h2>
+<p class="text-gray-300 mb-8 max-w-4xl text-lg">
+The system operates on two synchronized flows bridged by a central real-time database. This guarantees that what the patient sees on their app perfectly reflects the physical inventory managed by the backend.
+</p>
+
+<div class="glass-panel p-8 rounded-xl mb-12 overflow-x-auto">
+<h3 class="text-2xl mb-8 text-center text-white">The System Logic Diagram (The Blueprint)</h3>
+
+<div class="min-w-[800px] flex justify-between relative">
+    
+    <div class="w-[45%] flex flex-col items-center">
+        <h4 class="text-teal-400 mb-6 font-bold border-b border-teal-400 pb-2 uppercase tracking-wide">Left Flow: Stock Management Backend</h4>
+        
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">AI Layer: Initial Audit</strong><br><span class="text-gray-400 mt-1 block">Checks available stock, regional availability & expiration dates</span></div>
+        <div class="flow-arrow-down"></div>
+        
+        <div class="flow-box w-full mb-0 text-sm border-teal-400 shadow-[0_0_10px_rgba(0,255,255,0.1)]"><strong class="text-white text-base">Database Update</strong><br><span class="text-gray-400 mt-1 block">Logs shortages/expirations to Central DB</span></div>
+        <div class="flow-arrow-down"></div>
+
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">Predictive Analysis</strong><br><span class="text-gray-400 mt-1 block">AI generates predictive charts for stock redistribution</span></div>
+        <div class="flow-arrow-down"></div>
+
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">Fulfillment Planning</strong><br><span class="text-gray-400 mt-1 block">Calculates required stock per region. Checks local main store.</span></div>
+        <div class="flow-arrow-down"></div>
+
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">Export Block Check</strong><br><span class="text-gray-400 mt-1 block">If Yes: Gen. Yearly Reports.<br>If No: Check closer outlets for liquidity.</span></div>
+    </div>
+
+    <div class="absolute left-1/2 top-[140px] -translate-x-1/2 flex flex-col items-center w-32 z-20">
+        <div class="w-full h-px bg-teal-400/50 absolute top-1/2 -z-10 w-[240px] -translate-x-[54px]"></div>
+        <div class="bg-dark-900 border-2 border-teal-400 rounded-full w-28 h-28 flex items-center justify-center text-center shadow-[0_0_25px_rgba(0,255,255,0.25)] relative">
+            <span class="text-sm font-bold text-white leading-tight">Central<br>System<br>Database</span>
+        </div>
+        <span class="text-[11px] text-teal-400 mt-3 text-center uppercase tracking-widest font-bold bg-dark-900 px-3 py-1 border border-teal-400/30 rounded-full">The Bridge</span>
+    </div>
+
+    <div class="w-[45%] flex flex-col items-center">
+        <h4 class="text-teal-400 mb-6 font-bold border-b border-teal-400 pb-2 uppercase tracking-wide">Right Flow: Customer App Frontend</h4>
+        
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">User Upload</strong><br><span class="text-gray-400 mt-1 block">Patient uploads image of handwritten prescription</span></div>
+        <div class="flow-arrow-down"></div>
+        
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">AI Parsing</strong><br><span class="text-gray-400 mt-1 block">OCR + AI identifies specific medications & dosages</span></div>
+        <div class="flow-arrow-down"></div>
+
+        <div class="flow-box w-full mb-0 text-sm border-teal-400 shadow-[0_0_10px_rgba(0,255,255,0.1)]"><strong class="text-white text-base">Stock Verification</strong><br><span class="text-gray-400 mt-1 block">Queries Central DB: Are medications in stock locally?</span></div>
+        <div class="flow-arrow-down"></div>
+
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">Routing Logic</strong><br><span class="text-gray-400 mt-1 block">If In Stock: Verify outlet & check proximity/fast delivery.</span></div>
+        <div class="flow-arrow-down"></div>
+
+        <div class="flow-box w-full mb-0 text-sm"><strong class="text-white text-base">Resolution</strong><br><span class="text-gray-400 mt-1 block">Notify user for pickup OR AI searches wider radius if Out of Stock.</span></div>
+    </div>
+</div>
+</div>
+
+<div class="glass-panel rounded-xl overflow-hidden mt-8">
+<div class="flex border-b border-gray-800 flex-wrap sm:flex-nowrap">
+<button class="tech-tab flex-1 py-4 text-center font-poppins font-bold text-teal-400 bg-dark-800 border-b-2 border-teal-400 transition-colors" onclick="switchTab('frontend', this)">Frontend</button>
+<button class="tech-tab flex-1 py-4 text-center font-poppins font-bold text-gray-500 hover:text-gray-300 transition-colors border-b-2 border-transparent" onclick="switchTab('backend', this)">Backend</button>
+<button class="tech-tab flex-1 py-4 text-center font-poppins font-bold text-gray-500 hover:text-gray-300 transition-colors border-b-2 border-transparent" onclick="switchTab('ai', this)">AI Frameworks</button>
+<button class="tech-tab flex-1 py-4 text-center font-poppins font-bold text-gray-500 hover:text-gray-300 transition-colors border-b-2 border-transparent" onclick="switchTab('cloud', this)">Database & Cloud</button>
+</div>
+<div class="p-8 min-h-[16rem] flex flex-col justify-center bg-dark-800/50">
+
+<!-- FRONTEND TAB -->
+<div id="tech-frontend" class="tech-content block">
+<h3 class="text-2xl mb-3 text-white">React Native & Next.js</h3>
+<p class="text-gray-400 mb-6 leading-relaxed">React Native (with Expo) for rapid, cross-platform mobile application deployment; Next.js (React) for the dynamic, predictive supply chain admin dashboard.</p>
+<div class="flex flex-wrap gap-4 items-center">
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" class="w-6 h-6" alt="React">
+        <span class="text-sm font-medium text-teal-400">React Native (Expo)</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" class="w-6 h-6 invert opacity-90" alt="Next.js">
+        <span class="text-sm font-medium text-teal-400">Next.js</span>
+    </div>
+</div>
+</div>
+
+<!-- BACKEND TAB -->
+<div id="tech-backend" class="tech-content hidden">
+<h3 class="text-2xl mb-3 text-white">Node.js Ecosystem</h3>
+<p class="text-gray-400 mb-6 leading-relaxed">Node.js (NestJS/TypeScript) acting as a unified, high-speed orchestration layer, handling asynchronous API routing without the overhead of maintaining separate Python microservices.</p>
+<div class="flex flex-wrap gap-4 items-center">
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="w-6 h-6" alt="Node.js">
+        <span class="text-sm font-medium text-teal-400">Node.js</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg" class="w-6 h-6" alt="NestJS">
+        <span class="text-sm font-medium text-teal-400">NestJS</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="w-6 h-6" alt="TypeScript">
+        <span class="text-sm font-medium text-teal-400">TypeScript</span>
+    </div>
+</div>
+</div>
+
+<!-- AI FRAMEWORKS TAB -->
+<div id="tech-ai" class="tech-content hidden">
+<h3 class="text-2xl mb-3 text-white">Vision LLM & RAG</h3>
+<p class="text-gray-400 mb-6 leading-relaxed">Azure OpenAI (GPT-4o Vision) for multimodal medical parsing, Pinecone & LlamaIndex.TS for RAG-based semantic catalog matching, and Azure Automated ML for scalable time-series demand prediction and Google Maps API.</p>
+<div class="flex flex-wrap gap-4 items-center">
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="w-6 h-6" alt="Azure">
+        <span class="text-sm font-medium text-teal-400">Azure OpenAI & Auto ML</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" class="w-6 h-6" alt="Google">
+        <span class="text-sm font-medium text-teal-400">Google Maps API</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <span class="text-xl font-bold text-white drop-shadow-[0_0_2px_#00FFFF]">🦙</span>
+        <span class="text-sm font-medium text-teal-400">Pinecone & LlamaIndex</span>
+    </div>
+</div>
+</div>
+
+<!-- DATABASE & CLOUD TAB -->
+<div id="tech-cloud" class="tech-content hidden">
+<h3 class="text-2xl mb-3 text-white">PostgreSQL & AWS Healthlake</h3>
+<p class="text-gray-400 mb-6 leading-relaxed">Supabase (Managed PostgreSQL) acting as the real-time Central System Database bridge, Mapbox API for geospatial routing, and AWS Healthlake for enterprise-grade security and compliance.</p>
+<div class="flex flex-wrap gap-4 items-center">
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" class="w-6 h-6" alt="Supabase">
+        <span class="text-sm font-medium text-teal-400">Supabase</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="w-9 h-6 invert opacity-90" alt="AWS">
+        <span class="text-sm font-medium text-teal-400">AWS Healthlake</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-teal-400/30 rounded-lg shadow-[0_0_8px_rgba(0,255,255,0.1)] hover:border-teal-400 transition-colors cursor-default">
+        <span class="text-xl font-bold text-white drop-shadow-[0_0_2px_#00FFFF]">🗺️</span>
+        <span class="text-sm font-medium text-teal-400">Mapbox API</span>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="contract" class="scroll-mt-28 section-block">
+<h2 class="text-3xl mb-8 border-b border-gray-800 pb-4">4. The Functional Contract (20%)</h2>
+<p class="text-gray-300 mb-8 max-w-4xl text-lg">
+Adhering to the Hemas AIthon 2026 rule of not over-promising, we commit to delivering the following three fully functional core features for our Minimum Viable Product (MVP).
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="relative group h-full">
+<div class="absolute inset-0 bg-teal-400 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+<div class="relative bg-dark-900 border border-gray-700 p-8 rounded-xl h-full flex flex-col group-hover:border-teal-400/50 transition-colors">
+<h3 class="text-xl mb-4 text-white font-bold">1. AI Prescription Reader UI</h3>
+<p class="text-gray-400 mb-6 flex-grow text-sm leading-relaxed">A web/mobile interface allowing users to upload a mock handwritten prescription. The AI will successfully parse the image, extract the medicine names, and display them in a structured list.</p>
+<div class="text-xs text-teal-400 uppercase tracking-widest font-bold border-t border-gray-800 pt-4 mt-auto">Deliverable 1</div>
+</div>
+</div>
+
+<div class="relative group h-full">
+<div class="absolute inset-0 bg-teal-400 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+<div class="relative bg-dark-900 border border-gray-700 p-8 rounded-xl h-full flex flex-col group-hover:border-teal-400/50 transition-colors">
+<h3 class="text-xl mb-4 text-white font-bold">2. Geo-Location & Stock Sync</h3>
+<p class="text-gray-400 mb-6 flex-grow text-sm leading-relaxed">The parsed medicines will automatically query a mock centralized database. The system will demonstrate routing the user to the nearest 'in-stock' pharmacy or triggering a 'search wider radius' event if out of stock.</p>
+<div class="text-xs text-teal-400 uppercase tracking-widest font-bold border-t border-gray-800 pt-4 mt-auto">Deliverable 2</div>
+</div>
+</div>
+
+<div class="relative group h-full">
+<div class="absolute inset-0 bg-teal-400 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+<div class="relative bg-dark-900 border border-gray-700 p-8 rounded-xl h-full flex flex-col group-hover:border-teal-400/50 transition-colors">
+<h3 class="text-xl mb-4 text-white font-bold">3. Predictive Demand Dashboard</h3>
+<p class="text-gray-400 mb-6 flex-grow text-sm leading-relaxed">An admin dashboard for Hemas supply chain operators. It analyzes historical "out of stock" searches from the app to visually forecast which regions will need specific drug redistributions in the next quarter.</p>
+<div class="text-xs text-teal-400 uppercase tracking-widest font-bold border-t border-gray-800 pt-4 mt-auto">Deliverable 3</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="roi" class="scroll-mt-28 section-block">
+<h2 class="text-3xl mb-8 border-b border-gray-800 pb-4">5. ROI & Strategic Roadmap</h2>
+<p class="text-gray-300 mb-8 max-w-4xl text-lg">
+By turning consumer "search" data into predictive wholesale supply intelligence, Hemas Pharmaceuticals transitions from a reactive distribution model to a proactive, patient-centric ecosystem.
+</p>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start mb-12">
+<div class="space-y-8">
+<div class="bg-dark-800 p-8 rounded-xl border border-gray-700">
+<h3 class="text-2xl mb-6 text-white border-b border-gray-700 pb-3">The Scaling Roadmap</h3>
+<p class="text-gray-400 text-sm mb-6 leading-relaxed">Initially, the database tracks wholesale inventory. Moving forward, pharmacy operators will be given simple portal access to manually flag retail-level stockouts. Ultimately, we plan to integrate this app with Hemas Hospitals EHR.</p>
+
+<div class="relative border-l-2 border-teal-400/40 ml-4 space-y-8 mt-6">
+    <div class="relative pl-8">
+        <div class="absolute w-4 h-4 bg-teal-400 rounded-full -left-[9px] top-1 shadow-[0_0_12px_#00FFFF]"></div>
+        <h4 class="text-white font-bold text-lg mb-1">Phase 1: MVP Integration</h4>
+        <p class="text-sm text-gray-400">Wholesale DB Integration & Customer App OCR verification for high-fidelity routing.</p>
+    </div>
+    <div class="relative pl-8">
+        <div class="absolute w-4 h-4 bg-dark-900 border-2 border-teal-400 rounded-full -left-[9px] top-1"></div>
+        <h4 class="text-white font-bold text-lg mb-1">Phase 2: Retail Portal</h4>
+        <p class="text-sm text-gray-400">Retail Pharmacy manual override and notification integration to enrich the predictive dataset.</p>
+    </div>
+    <div class="relative pl-8">
+        <div class="absolute w-4 h-4 bg-dark-900 border-2 border-teal-400 rounded-full -left-[9px] top-1"></div>
+        <h4 class="text-white font-bold text-lg mb-1">Phase 3: EHR Sync</h4>
+        <p class="text-sm text-gray-400">Hemas Hospital EHR Sync for longitudinal patient care and chronic medication forecasting.</p>
+    </div>
+</div>
+</div>
+<div class="bg-dark-800 p-8 rounded-xl border border-gray-700 border-l-4 border-l-teal-400">
+<h3 class="text-xl mb-3 text-white font-bold">Data Governance</h3>
+<p class="text-gray-400 text-sm leading-relaxed">All prescription images are processed securely and deleted post-extraction to protect PII. Search trends aggregated for predictive analytics are entirely anonymized, ensuring compliance with local data privacy laws.</p>
+</div>
+</div>
+
+<div class="chart-container glass-panel h-full flex flex-col justify-center">
+<canvas id="impactChart"></canvas>
+<p class="text-center text-teal-400 text-xs mt-6 font-medium uppercase tracking-widest">Projected Impact: Search Time vs. Fulfillment</p>
+</div>
+</div>
+</section>
+
+<footer class="mt-28 pt-10 border-t border-gray-800 flex flex-col items-center justify-center pb-12">
+    <div class="mb-6">
+        <img src="IIT-Logo-Black-1-1024x420.png" alt="IIT Logo" class="h-14 object-contain invert-logo opacity-80 hover:opacity-100 transition-opacity">
+    </div>
+    <p class="text-gray-400 text-base font-medium tracking-wide">A project by Informatics Institute of Technology</p>
+    <div class="w-12 h-px bg-teal-400/50 my-4"></div>
+    <p class="text-gray-500 text-sm">Submitted via Official Aithon 2026 Portal.</p>
+    <p class="text-gray-600 text-xs mt-2 max-w-md text-center">Team: Koikatath AI. Format compliant: Poppins/Inter typography. Strictly adhering to max criteria aligned architecture.</p>
+</footer>
+
+</main>
+
+<script>
+// Fixed Tab Logic
+window.switchTab = function(techId, element) {
+    // Hide all contents
+    const contents = document.querySelectorAll('.tech-content');
+    contents.forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('block');
+    });
+    
+    // Show selected content
+    const selectedContent = document.getElementById('tech-' + techId);
+    if(selectedContent) {
+        selectedContent.classList.remove('hidden');
+        selectedContent.classList.add('block');
+    }
+
+    // Reset all tabs
+    const tabs = document.querySelectorAll('.tech-tab');
+    tabs.forEach(el => {
+        el.classList.remove('text-teal-400', 'bg-dark-800', 'border-teal-400');
+        el.classList.add('text-gray-500', 'border-transparent');
+    });
+    
+    // Highlight selected tab
+    element.classList.remove('text-gray-500', 'border-transparent');
+    element.classList.add('text-teal-400', 'bg-dark-800', 'border-teal-400');
+}
+
+// Improved ScrollSpy using IntersectionObserver for flawless highlighting
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll(".section-block");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -60% 0px', // Adjust triggers slightly above center
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                });
+                // Add active class to intersecting section's link
+                const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add("active");
+                }
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Chart.js Implementation
+    const ctx = document.getElementById('impactChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [
+                {
+                    label: 'Patient Med-Search Time (Mins)',
+                    data: [90, 60, 30, 15],
+                    borderColor: '#ef4444', 
+                    backgroundColor: 'transparent',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Pharmacy Fulfillment Rate (%)',
+                    type: 'bar',
+                    data: [65, 75, 88, 95],
+                    backgroundColor: 'rgba(0, 255, 255, 0.15)', 
+                    borderColor: '#00FFFF',
+                    borderWidth: 2,
+                    borderRadius: 4,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    labels: { color: '#e5e7eb', font: { family: 'Inter', size: 12 } }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                    titleColor: '#00FFFF',
+                    bodyColor: '#e5e7eb',
+                    borderColor: '#00FFFF',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 8
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(31, 41, 55, 0.5)' },
+                    ticks: { color: '#9ca3af', font: { family: 'Inter' } }
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    grid: { color: 'rgba(31, 41, 55, 0.5)' },
+                    ticks: { color: '#ef4444', font: { family: 'Inter', weight: 'bold' } },
+                    title: { display: true, text: 'Search Time', color: '#ef4444', font: { weight: 'bold' } }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    grid: { drawOnChartArea: false },
+                    ticks: { color: '#00FFFF', font: { family: 'Inter', weight: 'bold' } },
+                    title: { display: true, text: 'Fulfillment Rate', color: '#00FFFF', font: { weight: 'bold' } },
+                    min: 50,
+                    max: 100
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
